@@ -2,13 +2,13 @@
 
 set -euo pipefail
 
-PROJECT_NAME="video-timer-scheduler"
+PROJECT_NAME="tubetimer"
 
-echo "Creating project: ${PROJECT_NAME}"
+echo "Creating folder structure for project: ${PROJECT_NAME}"
 
-mkdir -p "${PROJECT_NAME}"
+#mkdir -p "${PROJECT_NAME}"
 
-cd "${PROJECT_NAME}"
+#cd "${PROJECT_NAME}"
 
 # Application
 mkdir -p app
