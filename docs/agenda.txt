@@ -1,0 +1,389 @@
+ Step-by-Step Learning Tasks
+
+## Phase 0 - Repository Setup
+
+Task 1
+
+- Create GitLab repository
+    
+- Add README.md
+    
+- Add .gitignore
+    
+- Create project board
+    
+- Create milestones
+    
+
+Task 2  
+Create folder structure:
+
+/app  
+/public  
+/src  
+/config  
+/database  
+/docker  
+/terraform  
+/docs
+
+Commit:  
+"Initial project structure"
+
+---
+
+## Phase 1 - Local PHP Application
+
+Task 3  
+Create PHP homepage.
+
+Goal:
+
+- PHP running locally
+    
+- Basic routing
+    
+
+Commit:  
+"Add application bootstrap"
+
+Task 4  
+Create MySQL database.
+
+Goal:
+
+- Local database connection
+    
+- PDO implementation
+    
+
+Commit:  
+"Add database connection"
+
+Task 5  
+Create migration scripts.
+
+Goal:
+
+- users table
+    
+- timers table
+    
+- timer_executions table
+    
+
+Commit:  
+"Add database schema"
+
+---
+
+## Phase 2 - Authentication
+
+Task 6  
+Implement registration.
+
+Goal:
+
+- Create users
+    
+- Password hashing
+    
+
+Commit:  
+"Implement user registration"
+
+Task 7  
+Implement login.
+
+Goal:
+
+- Session authentication
+    
+
+Commit:  
+"Implement user login"
+
+Task 8  
+Protected pages.
+
+Goal:
+
+- Redirect anonymous users
+    
+
+Commit:  
+"Add authentication middleware"
+
+---
+
+## Phase 3 - Timer Management
+
+Task 9  
+Create timer form.
+
+Goal:
+
+- Add timer
+    
+
+Commit:  
+"Create timer form"
+
+Task 10  
+List timers.
+
+Goal:
+
+- Display active timers
+    
+
+Commit:  
+"Add timer dashboard"
+
+Task 11  
+Delete timer.
+
+Goal:
+
+- Remove timers
+    
+
+Commit:  
+"Implement timer deletion"
+
+Task 12  
+Enable/Disable timer.
+
+Goal:
+
+- Toggle active state
+    
+
+Commit:  
+"Add timer status management"
+
+---
+
+## Phase 4 - Frontend Timer Engine
+
+Task 13  
+Load timers via API.
+
+Goal:
+
+- JSON endpoint
+    
+
+Commit:  
+"Add timer API"
+
+Task 14  
+Implement timer monitoring.
+
+Goal:
+
+- Browser checks local clock
+    
+
+Commit:  
+"Implement timer scheduler"
+
+Task 15  
+Automatic video playback.
+
+Goal:
+
+- Replace page content with player
+    
+
+Commit:  
+"Implement video playback"
+
+Task 16  
+Record execution history.
+
+Goal:
+
+- Store fired events
+    
+
+Commit:  
+"Add execution logging"
+
+---
+
+## Phase 5 - Nginx and Docker
+
+Task 17  
+Create PHP-FPM image.
+
+Commit:  
+"Containerize PHP application"
+
+Task 18  
+Create Nginx reverse proxy.
+
+Commit:  
+"Add Nginx configuration"
+
+Task 19  
+Create docker-compose.
+
+Goal:
+
+- Nginx
+    
+- PHP
+    
+- MySQL
+    
+
+Commit:  
+"Add local container environment"
+
+---
+
+## Phase 6 - AWS
+
+Task 20  
+Create AWS account structure.
+
+Learn:
+
+- IAM
+    
+- Least privilege
+    
+
+Task 21  
+Create ECR repository.
+
+Task 22  
+Push Docker image.
+
+Task 23  
+Deploy ECS service manually.
+
+Goal:
+
+- Understand ECS before Terraform
+    
+
+Commit:  
+"Manual ECS deployment"
+
+---
+
+## Phase 7 - Terraform
+
+Task 24  
+Create Terraform project.
+
+Task 25  
+Provision:
+
+- VPC
+    
+- Subnets
+    
+- Security Groups
+    
+
+Commit:  
+"Create network infrastructure"
+
+Task 26  
+Provision:
+
+- RDS
+    
+
+Commit:  
+"Provision database"
+
+Task 27  
+Provision:
+
+- ECS Cluster
+    
+- ECS Service
+    
+- Task Definition
+    
+
+Commit:  
+"Provision application infrastructure"
+
+Task 28  
+Provision:
+
+- Application Load Balancer
+    
+
+Commit:  
+"Provision ingress infrastructure"
+
+---
+
+## Phase 8 - GitLab CI/CD
+
+Task 29  
+Create pipeline.
+
+Stages:
+
+- lint
+    
+- build
+    
+- test
+    
+
+Commit:  
+"Add CI pipeline"
+
+Task 30  
+Build Docker image.
+
+Commit:  
+"Automate container build"
+
+Task 31  
+Push image to ECR.
+
+Commit:  
+"Automate image publishing"
+
+Task 32  
+Terraform deployment.
+
+Commit:  
+"Automate infrastructure deployment"
+
+---
+
+## Phase 9 - Production Improvements
+
+Task 33  
+HTTPS.
+
+Task 34  
+CloudWatch logs.
+
+Task 35  
+Application metrics.
+
+Task 36  
+Health checks.
+
+Task 37  
+Backup strategy.
+
+Task 38  
+Monitoring dashboard.
+
+Task 39  
+Cost optimization review.
+
+Task 40  
+Project documentation.
