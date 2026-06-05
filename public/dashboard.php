@@ -4,16 +4,10 @@ declare(strict_types=1);
 
 session_start();
 
-if (
-    !isset($_SESSION['user_id'])
-) {
-    header(
-        'Location: login.php'
-    );
-
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
     exit;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -28,26 +22,29 @@ if (
 <p>
     Logged in as:
     <strong>
-        <?= htmlspecialchars(
-            $_SESSION['email']
-        ) ?>
+        <?= htmlspecialchars($_SESSION['email']) ?>
     </strong>
 </p>
 
-<p>
-    Welcome to TubeTimer.
-</p>
+<ul>
+    <li>
+        <a href="create-timer.php">
+            Create Timer
+        </a>
+    </li>
 
-<p>
-    Timer management
-    will be added in Phase 04.
-</p>
+    <li>
+        <a href="timers.php">
+            View Timers
+        </a>
+    </li>
 
-<p>
-    <a href="logout.php">
-        Logout
-    </a>
-</p>
+    <li>
+        <a href="logout.php">
+            Logout
+        </a>
+    </li>
+</ul>
 
 </body>
 </html>
