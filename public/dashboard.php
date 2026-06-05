@@ -29,6 +29,7 @@ if (!isset($_SESSION['user_id'])) {
 </p>
 
 <ul>
+
     <li>
         <a href="create-timer.php">
             Create Timer
@@ -37,7 +38,13 @@ if (!isset($_SESSION['user_id'])) {
 
     <li>
         <a href="timers.php">
-            View Timers
+            Manage Timers
+        </a>
+    </li>
+
+    <li>
+        <a href="monitor.php">
+            Start Timer Monitor
         </a>
     </li>
 
@@ -46,6 +53,7 @@ if (!isset($_SESSION['user_id'])) {
             Logout
         </a>
     </li>
+
 </ul>
 
 </body>

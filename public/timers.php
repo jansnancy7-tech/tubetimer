@@ -25,38 +25,6 @@ $timers = $repository->findByUserId(
 <head>
     <title>My Timers</title>
 
-    <script>
-        function checkTimers() {
-
-            const now = new Date();
-
-            document
-                .querySelectorAll('[data-trigger]')
-                .forEach(timer => {
-
-                    const trigger = new Date(
-                        timer.dataset.trigger
-                    );
-
-                    if (now >= trigger) {
-
-                        window.location.href =
-                            'play-video.php?url=' +
-                            encodeURIComponent(
-                                timer.dataset.url
-                            );
-                    }
-                });
-        }
-
-        setInterval(
-            checkTimers,
-            1000
-        );
-
-        window.onload = checkTimers;
-    </script>
-
 </head>
 <body>
 
