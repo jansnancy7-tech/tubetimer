@@ -6,11 +6,17 @@ require_once __DIR__ . '/../src/Database.php';
 
 try {
     $database = new Database();
+    $connection = $database->getConnection();
+
+    $statement = $connection->query('SELECT NOW() AS current_time');
+    $result = $statement->fetch();
 
     echo '<h1>Database connection successful</h1>';
-} catch (Throwable $exception) {
-    echo '<h1>Connection failed</h1>';
     echo '<pre>';
-    echo $exception->getMessage();
+    print_r($result);
+    echo '</pre>';
+} catch (Throwable $e) {
+    echo '<pre>';
+    echo $e->getMessage();
     echo '</pre>';
 }
