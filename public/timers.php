@@ -47,7 +47,7 @@ $timers = $repository->findByUserId(
 <tr>
 
 <td>
-    <?= htmlspecialchars($timer['id']) ?>
+    <?= $timer['id'] ?>
 </td>
 
 <td>
