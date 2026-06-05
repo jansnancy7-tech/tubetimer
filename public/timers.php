@@ -24,6 +24,39 @@ $timers = $repository->findByUserId(
 <html>
 <head>
     <title>My Timers</title>
+
+    <script>
+        function checkTimers() {
+
+            const now = new Date();
+
+            document
+                .querySelectorAll('[data-trigger]')
+                .forEach(timer => {
+
+                    const trigger = new Date(
+                        timer.dataset.trigger
+                    );
+
+                    if (now >= trigger) {
+
+                        window.location.href =
+                            'play-video.php?url=' +
+                            encodeURIComponent(
+                                timer.dataset.url
+                            );
+                    }
+                });
+        }
+
+        setInterval(
+            checkTimers,
+            1000
+        );
+
+        window.onload = checkTimers;
+    </script>
+
 </head>
 <body>
 
@@ -46,22 +79,25 @@ $timers = $repository->findByUserId(
 
 <?php foreach ($timers as $timer): ?>
 
-<tr>
+<tr
+    data-trigger="<?= htmlspecialchars((string) $timer['trigger_time']) ?>"
+    data-url="<?= htmlspecialchars((string) $timer['youtube_url']) ?>"
+>
 
 <td>
-    <?= $timer['id'] ?>
+    <?= (int) $timer['id'] ?>
 </td>
 
 <td>
-    <?= htmlspecialchars($timer['youtube_url']) ?>
+    <?= htmlspecialchars((string) $timer['youtube_url']) ?>
 </td>
 
 <td>
-    <?= htmlspecialchars($timer['trigger_time']) ?>
+    <?= htmlspecialchars((string) $timer['trigger_time']) ?>
 </td>
 
 <td>
-    <a href="delete-timer.php?id=<?= $timer['id'] ?>">
+    <a href="delete-timer.php?id=<?= (int) $timer['id'] ?>">
         Delete
     </a>
 </td>
@@ -71,6 +107,10 @@ $timers = $repository->findByUserId(
 <?php endforeach; ?>
 
 </table>
+
+<p>
+    Browser tab must remain open for timers to trigger.
+</p>
 
 <p>
     <a href="dashboard.php">
