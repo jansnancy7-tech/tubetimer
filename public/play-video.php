@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../src/TimerRepository.php';
+require_once __DIR__ . '/../src/Database.php';
 
 session_start();
 
@@ -11,24 +13,47 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$url = $_GET['url'] ?? '';
+$timerId = (int) ($_GET['id'] ?? 0);
 
-if ($url === '') {
-    die('Missing URL');
+$database = new Database();
+
+$connection = $database->getConnection();
+
+$statement = $connection->prepare(
+    'SELECT *
+     FROM timers
+     WHERE id = :id'
+);
+
+$statement->execute([
+    'id' => $timerId
+]);
+
+$timer = $statement->fetch();
+
+if (!$timer) {
+    die('Timer not found');
 }
 
-$videoId = null;
+$repository = new TimerRepository();
+
+$repository->markExecuted(
+    $timerId
+);
+
+$url = $timer['youtube_url'];
 
 parse_str(
-    parse_url($url, PHP_URL_QUERY) ?? '',
+    parse_url(
+        $url,
+        PHP_URL_QUERY
+    ) ?? '',
     $query
 );
 
-if (isset($query['v'])) {
-    $videoId = $query['v'];
-}
+$videoId = $query['v'] ?? null;
 
-if ($videoId === null) {
+if (!$videoId) {
     die('Invalid YouTube URL');
 }
 ?>
@@ -36,7 +61,7 @@ if ($videoId === null) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TubeTimer Player</title>
+    <title>Playing Video</title>
 
     <style>
         body {
@@ -55,7 +80,7 @@ if ($videoId === null) {
 
 <iframe
     src="https://www.youtube.com/embed/<?= htmlspecialchars($videoId) ?>?autoplay=1"
-    allow="autoplay; encrypted-media"
+    allow="autoplay"
     allowfullscreen>
 </iframe>
 

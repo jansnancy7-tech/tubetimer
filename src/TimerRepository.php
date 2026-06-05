@@ -68,17 +68,46 @@ class TimerRepository
             'user_id' => $userId
         ]);
 
-        $timers = $statement->fetchAll();
+        return $statement->fetchAll();
+    }
+
+    public function findPendingByUserId(
+        int $userId
+    ): array {
+        $statement = $this->connection->prepare(
+            'SELECT *
+             FROM timers
+             WHERE user_id = :user_id
+             AND executed_at IS NULL
+             ORDER BY trigger_time ASC'
+        );
+
+        $statement->execute([
+            'user_id' => $userId
+        ]);
+
+        return $statement->fetchAll();
+    }
+
+    public function markExecuted(
+        int $timerId
+    ): void {
+        $statement = $this->connection->prepare(
+            'UPDATE timers
+             SET executed_at = NOW()
+             WHERE id = :id'
+        );
+
+        $statement->execute([
+            'id' => $timerId
+        ]);
 
         $this->logger->info(
             sprintf(
-                'Timers requested | user_id=%d | count=%d',
-                $userId,
-                count($timers)
+                'Timer executed | timer_id=%d',
+                $timerId
             )
         );
-
-        return $timers;
     }
 
     public function delete(

@@ -15,7 +15,7 @@ require_once __DIR__ . '/../src/TimerRepository.php';
 
 $repository = new TimerRepository();
 
-$timers = $repository->findByUserId(
+$timers = $repository->findPendingByUserId(
     (int) $_SESSION['user_id']
 );
 ?>
@@ -25,46 +25,33 @@ $timers = $repository->findByUserId(
 <head>
     <title>Timer Monitor</title>
 
-    <meta charset="UTF-8">
-
     <script>
-        let triggeredTimers = [];
 
-        function checkTimers() {
-
+        function checkTimers()
+        {
             const now = new Date();
 
             document
                 .querySelectorAll('[data-trigger]')
                 .forEach(timer => {
 
-                    const timerId =
-                        timer.dataset.id;
-
-                    if (
-                        triggeredTimers.includes(
-                            timerId
-                        )
-                    ) {
-                        return;
-                    }
-
                     const triggerTime =
                         new Date(
                             timer.dataset.trigger
                         );
 
-                    if (now >= triggerTime) {
+                    const diffSeconds =
+                        (now - triggerTime) / 1000;
 
-                        triggeredTimers.push(
-                            timerId
-                        );
+                    if (
+                        diffSeconds >= 0 &&
+                        diffSeconds <= 60
+                    ) {
 
                         window.location.href =
-                            'play-video.php?url=' +
-                            encodeURIComponent(
-                                timer.dataset.url
-                            );
+                            'play-video.php' +
+                            '?id=' +
+                            timer.dataset.id;
                     }
                 });
         }
@@ -74,54 +61,15 @@ $timers = $repository->findByUserId(
             1000
         );
 
-        window.onload = function () {
-
-            checkTimers();
-
-            setInterval(function () {
-
-                document.getElementById(
-                    'current-time'
-                ).innerText =
-                    new Date()
-                    .toLocaleString();
-
-            }, 1000);
-        };
     </script>
-
 </head>
 <body>
 
-<h1>TubeTimer Monitor</h1>
+<h1>Timer Monitor</h1>
 
 <p>
-    Current Time:
-    <strong id="current-time">
-        Loading...
-    </strong>
+    Keep this page open.
 </p>
-
-<p>
-    Keep this tab open.
-</p>
-
-<p>
-    When a timer reaches its trigger time,
-    the video will open automatically.
-</p>
-
-<hr>
-
-<h2>Active Timers</h2>
-
-<?php if (count($timers) === 0): ?>
-
-<p>
-    No timers configured.
-</p>
-
-<?php else: ?>
 
 <table border="1" cellpadding="8">
 
@@ -135,8 +83,13 @@ $timers = $repository->findByUserId(
 
 <tr
     data-id="<?= (int) $timer['id'] ?>"
-    data-url="<?= htmlspecialchars((string) $timer['youtube_url']) ?>"
-    data-trigger="<?= htmlspecialchars((string) $timer['trigger_time']) ?>"
+    data-trigger="<?= htmlspecialchars(
+        str_replace(
+            ' ',
+            'T',
+            (string) $timer['trigger_time']
+        )
+    ) ?>"
 >
 
 <td>
@@ -144,11 +97,15 @@ $timers = $repository->findByUserId(
 </td>
 
 <td>
-    <?= htmlspecialchars((string) $timer['youtube_url']) ?>
+    <?= htmlspecialchars(
+        (string) $timer['youtube_url']
+    ) ?>
 </td>
 
 <td>
-    <?= htmlspecialchars((string) $timer['trigger_time']) ?>
+    <?= htmlspecialchars(
+        (string) $timer['trigger_time']
+    ) ?>
 </td>
 
 </tr>
@@ -156,16 +113,6 @@ $timers = $repository->findByUserId(
 <?php endforeach; ?>
 
 </table>
-
-<?php endif; ?>
-
-<hr>
-
-<p>
-    <a href="timers.php">
-        Manage Timers
-    </a>
-</p>
 
 <p>
     <a href="dashboard.php">
