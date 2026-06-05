@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/../config/app.php';
+
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
